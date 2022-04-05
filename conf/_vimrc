@@ -1,0 +1,37 @@
+" 设置vim的编码为utf-8
+set encoding=utf-8
+
+" 设置vim读取文件时的编码，按照配置的顺序依次探测读取
+set fencs=ucs-bom,utf-8,gbk,gb2312,latin1
+
+" 设置提示编码的信息
+language messages zh_CN.utf-8
+
+" 设置菜单栏的编码 主要用于gvim
+set langmenu=zh_CN.utf-8
+
+" 解决windows下菜单栏乱码的问题
+if(has("win32") || has("win95") || has("win64") || has("win7") || has("win10"))
+    source $VIMRUNTIME/delmenu.vim " 导入删除菜单栏的脚本，删除乱码的菜单
+    source $VIMRUNTIME/menu.vim    " 导入菜单脚本
+endif
+
+" 设置英文字体 主要用于gvim
+set guifont=Hack:h16
+" 设置中文字体
+set guifontwide=Sarasa_Mono_Sc:h16
+
+" 把gvim下的快捷栏去掉
+set guioptions -= T
+
+" 设置交换文件所在的目录
+set dir
+
+" 设置备份文件所在的目录
+set  backupdir
+" 设置撤销文件所在的目录
+set undodir
+
+" 使指定的左右移动光标的键在行首或行尾可以移动到前一行或后一行。
+" b代表退格键, s 代表空格键, <和>代表左右箭头键。前面这几个键都是在普通和可视模式下可用的，[和]是在插入和替换模式下可用的，也是代表了左右箭头键
+set whichwrap=b,s,<,>,[,]  
