@@ -35,3 +35,37 @@ set undodir
 " 使指定的左右移动光标的键在行首或行尾可以移动到前一行或后一行。
 " b代表退格键, s 代表空格键, <和>代表左右箭头键。前面这几个键都是在普通和可视模式下可用的，[和]是在插入和替换模式下可用的，也是代表了左右箭头键
 set whichwrap=b,s,<,>,[,]  
+
+set number      " 显示行号
+set relativenumber      " 显示相对行号
+set hlsearch    " 搜索结果自动高亮
+set autoindent  " 自动缩进
+set smartindent     " 智能缩进
+set tabstop=4   " 设置 tab 制表符所占宽度为4
+set softtabstop=4   " 设置按 tab 时缩进的宽度为4
+set shiftwidth=4    " 设置自动缩进宽度为4
+set expandtab       " 缩进时 tab制表符转换为空格
+
+" 设置gvim启动时窗口自动最大化
+if has('win32')
+    au GUIEnter * simalt ~x
+else
+    au GUIEnter * call MaximizeWindow()
+endif
+
+function! MaximizeWindow()
+    silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
+endfunction
+
+" 为所有的文件在新建的时候都使用模板文件。如果没有，就是创建一个空白的文件
+autocmd BufNewFile * silent! 0r $VIMRUNTIME/templates/%:e.tpl
+
+" 离开插入模式后，将输入法自动切换为英文状态
+if has("gui_running")
+    set imactivatekey=C-space
+    inoremap <ESC> <ESC>:set iminsert=2<CR>
+endif
+
+" 当打开的文件是c文件时，给<F9>和<F10>绑定一个映射，映射的内容就是编译以及运行c文件
+autocmd FileType c nnoremap <F9> :!gcc % -o %:r<CR>
+autocmd FileType c nnoremap <F10> :!%:r<CR>
